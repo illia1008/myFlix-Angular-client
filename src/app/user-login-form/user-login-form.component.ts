@@ -35,6 +35,7 @@ export class UserLoginFormComponent implements OnInit {
                 token: res.token
             }
             localStorage.setItem("user", JSON.stringify(user));
+            localStorage.setItem("token",res.token);
             this.router.navigate(["movies"]);
         }, res => {
             this.snackBar.open("Login fail", "OK", {
