@@ -22,4 +22,8 @@ getMovies(): void {
       return this.movies;
     });
   }
+
+  getMsg(msg: any): void {
+    alert(msg)
+  }
 }
