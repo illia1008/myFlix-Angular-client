@@ -36,10 +36,11 @@ export class UserProfileComponent implements OnInit {
   }
 
   getfavoriteMovies(): void {
+    console.log(this.user.favoriteMovies);
     this.fetchApiData.getAllMovies().subscribe((res: any) => {
       this.favoriteMovies = res.filter((movie: any) => {
-        return this.user.favoriteMovies.includes(movie._id)
-      })
+        return this.user.favoriteMovies.includes(movie._id);
+      });
     }, (err: any) => {
       console.error(err);
     });
@@ -69,7 +70,7 @@ export class UserProfileComponent implements OnInit {
       duration: 3000,
       verticalPosition: 'top' // Position can be 'top' or 'bottom'
     });
-}
+  }
 
 
   // Fetch current user data from localStorage or API

@@ -104,18 +104,21 @@ export class FetchApiDataService {
   }
 
   // Add a movie to favourite Movies
-  public addFavoriteMovie(username: String, Title: String): Observable<any> {
+  public addFavoriteMovie(username: string, Title: string): Observable<any> {
     const token = localStorage.getItem('token');
-    return this.http.post(apiUrl + '/users/' + username + '/' + Title, {}, {
-      headers: new HttpHeaders(
-        {
-          Authorization: 'Bearer ' + token,
-        })
-    }).pipe(
-      map(this.extractResponseData),
-      catchError(this.handleError)
-    );
+    return this.http.put(`${apiUrl}/users/${username}/favoriteMovies/${Title}`, {}, {
+      headers: new HttpHeaders({ Authorization: `Bearer ${token}` }),
+    });
   }
+
+  // Delete a movie to favourite Movies
+  public deleteFavoriteMovie(username: string, Title: string): Observable<any> {
+    const token = localStorage.getItem('token');
+    return this.http.delete(`${apiUrl}/users/${username}/movies/${Title}`, {
+      headers: new HttpHeaders({ Authorization: `Bearer ${token}` }),
+    });
+  }
+
 
   // Edit user
   public editUser(userDetails: any): Observable<any> {
@@ -145,21 +148,7 @@ export class FetchApiDataService {
     );
   }
 
-  // Delete a movie from the favorite movies
-  public deleteFavoriteMovie(username: String, Title: String): Observable<any> {
-    const token = localStorage.getItem('token');
-    return this.http.delete(apiUrl + '/users/' + username + '/' + Title, {
-      headers: new HttpHeaders(
-        {
-          Authorization: 'Bearer ' + token,
-        })
-    }).pipe(
-      map(this.extractResponseData),
-      catchError(this.handleError)
-    );
-  }
 
-  
   // Non-typed response extraction
   private extractResponseData(res: any): any {
     const body = res;
@@ -171,10 +160,9 @@ export class FetchApiDataService {
       console.error('Some error occurred:', error.error.message);
     } else {
       console.error(
-        `Error Status code ${error.status}, ` +
-        `Error body is: ${error.error}`);
+        `Error Status code ${error.status}, ` + `Error body is: ${error.error}`
+      );
     }
-    return throwError(
-      'Something bad happened; please try again later.');
+    return throwError('Something bad happened; please try again later.');
   }
 }
