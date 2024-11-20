@@ -17,15 +17,17 @@ export class MovieCardComponent implements OnInit {
     this.loadUserData();
   }
 
-  // Fetch all movies
   getMovies(): void {
     this.fetchApiData.getAllMovies().subscribe((resp: any) => {
-      this.movies = resp;
+      this.movies = resp.map((movie: any) => {
+        movie.ImagePath = `images/${movie.ImagePath}`;
+        console.log('ImagePath:', movie.ImagePath);
+        return movie;
+      });
       console.log('Movies:', this.movies);
     });
   }
 
-  // Load user data from localStorage
   loadUserData(): void {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
@@ -36,7 +38,6 @@ export class MovieCardComponent implements OnInit {
     }
   }
 
-  // Add or remove a movie from the user's favorites
   modifyFavoriteMovies(movie: any): void {
     if (!this.user || !this.user.FavoriteMovies) {
       console.error('User or favoriteMovies is undefined.');
@@ -44,7 +45,6 @@ export class MovieCardComponent implements OnInit {
     }
 
     if (this.isFavorite(movie)) {
-      // Remove from favorites
       this.fetchApiData.deleteFavoriteMovie(this.user.Username, movie._id).subscribe(
         (res) => {
           console.log('Removed from favorites:', res);
@@ -55,7 +55,6 @@ export class MovieCardComponent implements OnInit {
         (err) => console.error('Error removing from favorites:', err)
       );
     } else {
-      // Add to favorites
       this.fetchApiData.addFavoriteMovie(this.user.Username, movie._id).subscribe(
         (res) => {
           console.log('Added to favorites:', res);
@@ -68,12 +67,10 @@ export class MovieCardComponent implements OnInit {
     }
   }
 
-  // Check if a movie is in the user's favorites
   isFavorite(movie: any): boolean {
     return this.user.FavoriteMovies?.includes(movie._id) || false;
   }
 
-  // Display a message in an alert
   getMsg(msg: any): void {
     alert(msg);
   }
