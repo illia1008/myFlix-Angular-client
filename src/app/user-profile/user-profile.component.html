@@ -1,63 +1,53 @@
-<mat-card>
-
+<mat-card class="profile-card">
   <mat-card-header>
     <mat-card-title>User Profile</mat-card-title>
   </mat-card-header>
 
   <mat-card-content>
-    <form>
-      <mat-form-field style="margin-right: 10px;">
-        <label>Username</label>
-        <input matInput [(ngModel)]="user.Username" placeholder="Username" type="text" name="Username" required>
+    <form class="profile-form">
+      <mat-form-field>
+        <input matInput [(ngModel)]="user.Username" placeholder="Username" type="text" name="Username" required />
       </mat-form-field>
-      <mat-form-field style="margin-right: 10px;">
-        <label>Password</label>
-        <input matInput [(ngModel)]="user.Password" type="password" placeholder="Password" name="Password" required>
+      <mat-form-field>
+        <input matInput [(ngModel)]="user.Password" type="password" placeholder="Password" name="Password" required />
       </mat-form-field>
-      <mat-form-field style="margin-right: 10px;">
-        <label>Email</label>
-        <input matInput [(ngModel)]="user.Email" type="email" placeholder="Email" name="Email" required>
+      <mat-form-field>
+        <input matInput [(ngModel)]="user.Email" type="email" placeholder="Email" name="Email" required />
       </mat-form-field>
-      <mat-form-field style="margin-right: 10px;">
-        <label>Birthday</label>
-        <input matInput [(ngModel)]="user.Birthday" type="date" placeholder="Birthday" name="Birthday">
+      <mat-form-field>
+        <input matInput [(ngModel)]="user.Birthday" type="date" placeholder="Birthday" name="Birthday" />
       </mat-form-field>
     </form>
   </mat-card-content>
 
-  <mat-card-actions>
-    <button mat-raised-button (click)="updateUser()" color="primary" style="margin-right: 10px;">
-      Update
-    </button>
-    <button mat-raised-button (click)="resetUser()" color="primary" style="margin-right: 10px;">
-      Reset
-    </button>
-    <button mat-raised-button (click)="logout()" color="primary" style="margin-right: 10px;">
-      Logout
-    </button>
+  <mat-card-actions class="action-buttons">
+    <button mat-raised-button (click)="updateUser()" color="primary">Update</button>
+    <button mat-raised-button (click)="resetUser()" color="accent">Reset</button>
+    <button mat-raised-button (click)="logout()" color="warn">Logout</button>
   </mat-card-actions>
 
-  <!-- Favorite Movies -->
+  <!-- Favorite Movies Section -->
   <mat-card-title>Favorite Movies</mat-card-title>
-  <div style="display: flex; flex-wrap: wrap;">
-    <mat-card *ngFor="let movie of favoriteMovies; let i = index"
-      style="width: 280px; margin-right: 10px; margin-bottom: 10px;">
+  <div class="favorites-container">
+    <mat-card
+      *ngFor="let movie of favoriteMovies; let i = index"
+      class="favorite-movie-card"
+    >
       <mat-card-header>
-        <mat-card-title>{{movie.Title}}</mat-card-title>
-        <mat-card-subtitle>Directed by: {{movie.Director.Name}}</mat-card-subtitle>
+        <mat-card-title>{{ movie.Title }}</mat-card-title>
+        <mat-card-subtitle>Directed by: {{ movie.Director.Name }}</mat-card-subtitle>
       </mat-card-header>
-      <img [src]="movie.ImagePath" alt="{{ movie.Title }}" style="width: 100%; height: auto;" />
+      <img [src]="movie.ImagePath" alt="{{ movie.Title }}" class="favorite-movie-poster" />
       <mat-card-actions>
-        <button mat-raised-button (click)="removeFromFavorite(movie)" color="primary" style="margin-right: 10px;">
-          Remove from favorite
+        <button mat-raised-button (click)="removeFromFavorite(movie)" color="primary">
+          Remove from Favorite
         </button>
       </mat-card-actions>
     </mat-card>
 
-    <!-- If no favorite movies are found, show a message -->
-    <div *ngIf="favoriteMovies.length === 0" style="width: 100%; text-align: center;">
+    <!-- Message if no favorites -->
+    <div *ngIf="favoriteMovies.length === 0" class="no-favorites-message">
       <p>No favorite movies to display.</p>
     </div>
   </div>
-
 </mat-card>

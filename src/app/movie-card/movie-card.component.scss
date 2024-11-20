@@ -1,0 +1,54 @@
+.movie-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Space between cards */
+  justify-content: center; /* Center the cards */
+  padding: 20px;
+  background-color: #f5f5f5; /* Light background for better contrast */
+}
+
+.movie-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 300px; /* Fixed width for consistent card size */
+  background-color: white;
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.movie-card:hover {
+  transform: translateY(-5px); /* Slight lift effect on hover */
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+.movie-poster {
+  width: 100%; /* Full width of the card */
+  height: auto;
+  border-radius: 4px 4px 0 0; /* Rounded corners at the top */
+}
+
+mat-card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+mat-card-subtitle {
+  font-size: 1rem;
+  color: #666;
+}
+
+mat-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px; /* Space between buttons */
+  padding: 10px;
+}
+
+button {
+  flex: 1;
+  font-size: 0.9rem;
+}
