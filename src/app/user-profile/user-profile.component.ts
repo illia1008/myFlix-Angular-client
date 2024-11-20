@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FetchApiDataService } from '../fetch-api-data.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router'; // Import Router
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.scss']
+  styleUrls: ['./user-profile.component.scss'],
 })
 export class UserProfileComponent implements OnInit {
   user: any = {};
@@ -14,13 +15,29 @@ export class UserProfileComponent implements OnInit {
 
   constructor(
     public fetchApiData: FetchApiDataService,
-    public snackBar: MatSnackBar
-  ) { }
+    public snackBar: MatSnackBar,
+    private router: Router // Inject Router service
+  ) {}
 
   ngOnInit(): void {
     this.getUserInfo();
     this.getfavoriteMovies();
     this.getMovies();
+  }
+
+  logout(): void {
+    // Clear user data from localStorage
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+
+    // Show a logout confirmation message
+    this.snackBar.open('You have been logged out successfully.', 'Close', {
+      duration: 3000,
+      verticalPosition: 'top',
+    });
+
+    // Navigate to the welcome page
+    this.router.navigate(['/welcome']);
   }
 
   // Fetch all movies
@@ -73,7 +90,6 @@ export class UserProfileComponent implements OnInit {
           (favMovie) => favMovie._id !== movie._id
         );
 
-        // Optional: Show a confirmation message
         this.snackBar.open(`${movie.Title} has been removed from your favorites.`, 'Close', {
           duration: 3000,
           verticalPosition: 'top',
@@ -82,7 +98,6 @@ export class UserProfileComponent implements OnInit {
       (err: any) => {
         console.error('Error removing from favorites:', err);
 
-        // Optional: Show an error message
         this.snackBar.open('Failed to remove the movie from favorites.', 'Close', {
           duration: 3000,
           verticalPosition: 'top',
@@ -95,19 +110,6 @@ export class UserProfileComponent implements OnInit {
   resetUser(): void {
     this.user = JSON.parse(localStorage.getItem("user") || "");
   }
-
-  logout(): void {
-    // Clear user data from localStorage first
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
-
-    // Show a logout confirmation message
-    this.snackBar.open('You have been logged out successfully.', 'Close', {
-      duration: 3000,
-      verticalPosition: 'top' // Position can be 'top' or 'bottom'
-    });
-  }
-
 
   // Fetch current user data from localStorage or API
   getUserInfo(): void {
