@@ -20,7 +20,6 @@ export class MovieCardComponent implements OnInit {
   getMovies(): void {
     this.fetchApiData.getAllMovies().subscribe((resp: any) => {
       this.movies = resp.map((movie: any) => {
-        movie.ImagePath = `images/${movie.ImagePath}`;
         console.log('ImagePath:', movie.ImagePath);
         return movie;
       });

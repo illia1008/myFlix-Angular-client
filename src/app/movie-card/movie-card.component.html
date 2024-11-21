@@ -4,7 +4,7 @@
       <mat-card-title>{{ movie.Title }}</mat-card-title>
       <mat-card-subtitle>Directed by: {{ movie.Director.Name }}</mat-card-subtitle>
     </mat-card-header>
-    <img class="movie-poster" [src]="'assets/' + movie.ImagePath" alt="{{ movie.Title }}" />
+    <img class="movie-poster" [src]="movie.ImagePath" alt="{{ movie.Title }}" />
     <mat-card-actions>
       <button mat-raised-button color="primary" (click)="getMsg(movie.Genre.Description)">
         Genre
