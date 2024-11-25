@@ -9,15 +9,32 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./welcome-page.component.scss']
 })
 export class WelcomePageComponent implements OnInit {
-  constructor(public dialog: MatDialog) { }
-  ngOnInit(): void {
-  }
+  /**
+   * Constructor to inject the MatDialog service.
+   * @param dialog - Service for opening Material dialogs.
+   */
+  constructor(public dialog: MatDialog) {}
+
+  /**
+   * Angular lifecycle hook that initializes the component.
+   */
+  ngOnInit(): void {}
+
+  /**
+   * Opens the user registration dialog.
+   * Displays the `UserRegistrationFormComponent` in a modal dialog.
+   */
   openUserRegistrationDialog(): void {
     this.dialog.open(UserRegistrationFormComponent, {
       width: '280px'
     });
   }
-openUserLoginDialog(): void {
+
+  /**
+   * Opens the user login dialog.
+   * Displays the `UserLoginFormComponent` in a modal dialog.
+   */
+  openUserLoginDialog(): void {
     this.dialog.open(UserLoginFormComponent, {
       width: '280px'
     });

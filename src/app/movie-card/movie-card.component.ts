@@ -10,13 +10,21 @@ export class MovieCardComponent implements OnInit {
   movies: any[] = [];
   user: any = {};
 
-  constructor(public fetchApiData: FetchApiDataService) { }
+  constructor(public fetchApiData: FetchApiDataService) {}
 
+  /**
+   * Angular lifecycle hook that initializes the component.
+   * Calls methods to fetch movies and load user data.
+   */
   ngOnInit(): void {
     this.getMovies();
     this.loadUserData();
   }
 
+  /**
+   * Fetches all movies from the API and maps their data.
+   * Logs each movie's `ImagePath` to the console.
+   */
   getMovies(): void {
     this.fetchApiData.getAllMovies().subscribe((resp: any) => {
       this.movies = resp.map((movie: any) => {
@@ -27,6 +35,10 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
+  /**
+   * Loads user data from localStorage.
+   * Logs the user data if found, or logs an error if no user is found.
+   */
   loadUserData(): void {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
@@ -37,6 +49,12 @@ export class MovieCardComponent implements OnInit {
     }
   }
 
+  /**
+   * Toggles a movie as a favorite for the user.
+   * Adds the movie to or removes it from the user's favorites list.
+   * Updates localStorage and refreshes the movie list.
+   * @param movie - The movie to modify in the favorites list.
+   */
   modifyFavoriteMovies(movie: any): void {
     if (!this.user || !this.user.FavoriteMovies) {
       console.error('User or favoriteMovies is undefined.');
@@ -66,10 +84,19 @@ export class MovieCardComponent implements OnInit {
     }
   }
 
+  /**
+   * Checks if a movie is in the user's favorites list.
+   * @param movie - The movie to check.
+   * @returns `true` if the movie is a favorite, otherwise `false`.
+   */
   isFavorite(movie: any): boolean {
     return this.user.FavoriteMovies?.includes(movie._id) || false;
   }
 
+  /**
+   * Displays an alert with the provided message.
+   * @param msg - The message to display in the alert.
+   */
   getMsg(msg: any): void {
     alert(msg);
   }
